@@ -4,9 +4,9 @@ import (
 	"math/rand"
 )
 
-func GetArray() [10000]int {
-	var arr [10000]int
-	for index := 0; index < 10000; index++ {
+func GetArray(size int) []int {
+	var arr []int
+	for index := 0; index < size; index++ {
 		arr[index] = rand.Intn(10000)
 	}
 
@@ -18,5 +18,3 @@ type Result struct {
 	name       string
 	isVVariant bool
 }
-
-var Results []Result

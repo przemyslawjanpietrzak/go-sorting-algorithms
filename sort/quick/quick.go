@@ -2,7 +2,7 @@ package quick
 
 import "math/rand"
 
-func quickSort(arr []int) []int {
+func Quick(arr []int) []int {
 	if len(arr) < 2 {
 		return arr
 	}
@@ -22,8 +22,8 @@ func quickSort(arr []int) []int {
 
 	arr[left], arr[right] = arr[right], arr[left]
 
-	quickSort(arr[:left])
-	quickSort(arr[left+1:])
+	Quick(arr[:left])
+	Quick(arr[left+1:])
 
 	return arr
 }
