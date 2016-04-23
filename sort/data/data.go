@@ -1,11 +1,9 @@
 package data
 
-import (
-	"math/rand"
-)
+import "math/rand"
 
 func GetArray(size int) []int {
-	var arr []int
+	var arr []int = make([]int, size)
 	for index := 0; index < size; index++ {
 		arr[index] = rand.Intn(10000)
 	}

@@ -3,24 +3,24 @@ package heap
 // import "fmt"
 
 func siftDown(arr []int, lo, hi, first int) {
-  root := lo
-  for {
-  	child := 2*root + 1
-  	if child >= hi {
-  		break
-  	}
-  	if child+1 < hi && arr[first+child] < arr[first+child+1] {
-  		child++
-  	}
-  	if arr[first+root] >=arr[first+child] {
-  		return
-  	}
-  	arr[first+root], arr[first+child] = arr[first+child], arr[first+root]
-  	root = child
-  }
+	root := lo
+	for {
+		child := 2*root + 1
+		if child >= hi {
+			break
+		}
+		if child+1 < hi && arr[first+child] < arr[first+child+1] {
+			child++
+		}
+		if arr[first+root] >= arr[first+child] {
+			return
+		}
+		arr[first+root], arr[first+child] = arr[first+child], arr[first+root]
+		root = child
+	}
 }
 
-func heapSort(arr []int, a, b int) {
+func heapSort(arr []int, a, b int) []int {
 	first := a
 	lo := 0
 	hi := b - a
@@ -34,4 +34,9 @@ func heapSort(arr []int, a, b int) {
 		arr[first], arr[first+i] = arr[first+i], arr[first]
 		siftDown(arr, lo, i, first)
 	}
+	return arr
+}
+
+func Heap(arr []int) []int {
+	return heapSort(arr, 0, len(arr)-1)
 }

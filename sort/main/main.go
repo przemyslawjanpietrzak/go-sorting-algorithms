@@ -2,50 +2,69 @@ package main
 
 import (
 	"aisd-sortowanie/sort/data"
+	"aisd-sortowanie/sort/heap"
+	// "aisd-sortowanie/sort/insert"
 	"aisd-sortowanie/sort/quick"
+	"encoding/json"
 	"fmt"
 	"time"
 )
 
 type Result struct {
-	time       float64
-	name       string
-	isVVariant bool
+	Time       float64
+	Name       string
+	IsVVariant bool
+}
+
+type Result1 struct {
+	// time       float64
+	Name string
+	// isVVariant bool
+}
+
+type Response1 struct {
+	Page int
 }
 
 func main() {
-	var sorts map[string]func([]int) []int
+	var sorts = make(map[string]func([]int) []int)
 	sorts["quick"] = quick.Quick
+	sorts["heap"] = heap.Heap
+	// sorts["insert"] = insert.Insert
 
+	// make(map[string]T)
 	var testsCount int = 5 //settings
-	var testsValues []int = []int{10, 100, 1000, 10000, 100000, 1000000}
+	var testsValues []int = []int{10, 100, 1000, 10000, 100000}
 
 	// var results list.List
 	var results = make([]Result, len(testsValues)*len(sorts))
 
-	var arr = []int{12, 3, 4, 5}
+	var arr []int
 	var index int
 	for key := range sorts {
-		for testValue := range testsValues {
-
+		for _, testValue := range testsValues {
 			var timeValue float64
 			for i := 0; i < testsCount; i++ {
+
 				arr = data.GetArray(testValue)
 				start := time.Now()
 				sorts[key](arr)
+
 				elapsed := time.Since(start)
 				timeValue += elapsed.Seconds()
 			}
 
 			results[index] = Result{
-				time:       timeValue / float64(testsCount),
-				name:       key,
-				isVVariant: false,
+				Time:       timeValue / float64(testsCount),
+				Name:       key,
+				IsVVariant: false,
 			}
 
 			index++
 		}
 	}
 
-	fmt.Println("Hello, 世界")
+	responseJSon, _ := json.Marshal(results)
+	fmt.Println(string(responseJSon))
+
 }
